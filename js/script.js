@@ -28,6 +28,27 @@ form.addEventListener('submit', (event) => {
         `;
         
         // Make another API call to get the 5-day forecast
-        const forecastApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+        const forecastApiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${city}&appid=${apiKey}`;
         return fetch(forecastApiUrl);
       })
+      .then(response => response.json())
+    .then(data => {
+      // Display 5-day forecast
+      const forecastData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
+      forecast.innerHTML = '';
+      forecastData.forEach(item => {
+        const date = new Date(item.dt * 1000).toLocaleDateString();
+        const iconUrl = `https://openweathermap.org/img/w/${item.weather[0].icon}.png`;
+        const temperature = item.main.temp;
+        const humidity = item.main.humidity;
+        const windSpeed = item.wind.speed;
+        forecast.innerHTML += `
+          <div>
+            <h3>${date}</h3>
+            <img src="${iconUrl}" alt="${item.weather[0].description}">
+            <p>Temperature: ${temperature} °F</p>
+            <p>Humidity: ${humidity}%</p>
+            <p>Wind Speed: ${windSpeed} MPH</p>
+          </div>
+        `;
+      });
