@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Document</title>
-</head>
-<body>
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <h1>Weather Dashboard</h1>
+      <form>
+        <label for="city-input">Enter a city:</label>
+        <input type="text" id="city-input" required>
+        <button type="submit">Search</button>
+      </form>
+    </header>
+    <main>
+      <section id="current-weather"></section>
+      <section id="forecast"></section>
+    </main>
+    <aside>
+      <h2>Search History</h2>
+      <ul id="search-history"></ul>
+    </aside>
     <script src="./assets/js/script.js"></script>
-</body>
+  </body>
 </html>
