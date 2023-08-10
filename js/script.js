@@ -28,7 +28,7 @@ form.addEventListener('submit', (event) => {
         `;
         
         // Make another API call to get the 5-day forecast
-        const forecastApiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${city}&appid=${apiKey}`;
+        const forecastApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
         return fetch(forecastApiUrl);
       })
       .then(response => response.json())
@@ -52,3 +52,19 @@ form.addEventListener('submit', (event) => {
           </div>
         `;
       });
+
+      // Add the city to the search history
+      const searchItem = document.createElement('li');
+      searchItem.textContent = city;
+      searchHistory.appendChild(searchItem);
+    })
+    .catch(error => console.error(error));
+});
+
+searchHistory.addEventListener('click', (event) => {
+  if (event.target.tagName === 'LI') {
+    const city = event.target.textContent;
+    input.value = city;
+    form.dispatchEvent(new Event('submit'));
+  }
+});
